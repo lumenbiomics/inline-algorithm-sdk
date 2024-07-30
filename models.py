@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from typing import List, Any
 
 class ScanStart(BaseModel):
     algorithm_id: str
@@ -21,3 +22,15 @@ class ScanEnd(BaseModel):
 
 class ScanAbort(BaseModel):
     slide_name: str
+
+class Results(BaseModel):
+    detection_array: List[List[Any]]
+    row_idx: int
+    col_idx: int
+
+class TileResults(BaseModel):
+    algorithm_id: str
+    slide_name: str
+    tile_name: str
+    results: dict
+

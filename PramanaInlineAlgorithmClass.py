@@ -1,79 +1,79 @@
-from AbstractInlineAlgorithmClass import AbstractInlineAlgorithmClass
-from fastapi import FastAPI, Request, APIRouter
+from fastapi import FastAPI, Request, APIRouter, Response
 import uvicorn
+from AbstractInlineAlgorithmClass import AbstractInlineAlgorithmClass
 import json
-import time
 import requests
+from contextlib import asynccontextmanager
 from queue import Queue
 from threading import  Thread, Event
-from models import ScanStart, ScanOngoing, ScanEnd, ScanAbort
+from models import ScanStart, ScanOngoing, ScanEnd, ScanAbort, Results, TileResults
 
-from helpers import model_detection_helper
-
-class PramanaInlineAlgorithmClass(AbstractInlineAlgorithmClass, FastAPI):
-    def __init__(self, port, host, model) -> None:
+class PramanaInlineAlgorithmClass(AbstractInlineAlgorithmClass):
+    def __init__(self, port, host, docker_mode=False) -> None:
         self.port = port
         self.host = host
-        self.queue = Queue()
-        self.error_event = Event()
-        self.model = model
-        self.app = FastAPI()
-        self.router = APIRouter()
-
-        # Define endpoints
-        @self.app.put('/v1/scan/start',status_code=200)
-        async def scan_start(
-        params: ScanStart,
-        request: Request
-    ):
-            self.queue.put(params)
-            return "v1/scan/start received"
-
-        @self.app.post('/v1/scan/image-tile', status_code=202)
-        async def scan_ongoing(
-                params: ScanOngoing,
-                request: Request
-            ):
-            self.queue.put(params)
-            return "v1/scan/image-tile received"
-
-        @self.app.put('/v1/scan/end', status_code=204)
-        async def scan_end(
-                params: ScanEnd,
-                request: Request
-            ):
-            self.queue.put(params)
-            return "v1/scan/end received"
-        
-        @self.app.put('/v1/scan/abort', status_code=204)
-        async def scan_end(
-                params: ScanAbort,
-                request: Request
-            ):
-            self.queue.put(params)
-            return "v1/scan/abort received"
+        self.docker_mode = docker_mode
+        self.__queue = Queue()
+        self.__error_event = Event()
+        self.app = FastAPI(lifespan=self.lifespan)
+        self.__router = APIRouter()
+        self.__init_routes()
     
     def __init_routes(self,):
-        self.router.add_api_route('/v1/scan/start', scan_start, methods = ['PUT'])
-        self.router.add_api_route('/v1/scan/end', scan_end, methods = ['PUT'])
-        self.router.add_api_route('/v1/scan/image-tile/', scan_image_tile, methods = ['POST'])
-        self.router.add_api_route('/v1/scan/abort', scan_abort, methods = ['PUT'])
+        self.__router.add_api_route('/v1/scan/start', self.scan_start, methods = ['PUT'])
+        self.__router.add_api_route('/v1/scan/end', self.scan_end, methods = ['PUT'])
+        self.__router.add_api_route('/v1/scan/image-tile', self.scan_ongoing, methods = ['POST'])
+        self.__router.add_api_route('/v1/scan/abort', self.scan_abort, methods = ['PUT'])
+        self.app.include_router(self.__router)
         
-
-    
-    def on_server_start(self,):
-        
+    @asynccontextmanager
+    async def lifespan(self, app: FastAPI):
         thread_handle = Thread(
        target=self.api_call_handler_loop,
-    #    args=(app.state.api_call_queue, args.docker, error_event, model),
        daemon=True,
         )
         thread_handle.start()
+        self.on_server_start()
+        yield
+        self.on_server_end()
     
+    
+    async def scan_start(
+            self,
+            params: ScanStart,
+            request: Request
+        ):
+        self.__queue.put(params)
+        return Response(status_code=200)
+    
+    async def scan_ongoing(
+        self,
+        params: ScanOngoing,
+        request: Request
+    ):
+        self.__queue.put(params)
+        return Response(status_code=202)
+
+    async def scan_end(
+        self,
+        params: ScanEnd,
+        request: Request
+    ):
+        self.__queue.put(params)
+        return Response(status_code=204)
+
+    async def scan_abort(
+        self,
+        params: ScanAbort,
+        request: Request
+    ):
+        self.__queue.put(params)
+        return Response(status_code=204)
+
     def api_call_handler_loop(self):
         try:
             while True:
-                message = self.queue.get()
+                message = self.__queue.get()
                 if type(message) == ScanStart:
                     algorithm_id = message.algorithm_id
                     slide_name = message.slide_name
@@ -86,7 +86,13 @@ class PramanaInlineAlgorithmClass(AbstractInlineAlgorithmClass, FastAPI):
                     tile_name = message.tile_name
                     row_idx = message.row_idx
                     col_idx = message.col_idx
-                    results = model_detection_helper(self.model, path)
+                    model_results = self.process(path)
+                    results_dict = {
+                        "row_idx": row_idx,
+                        "col_idx": col_idx,
+                        "detection_array": model_results
+                    }
+                    results = Results(**results_dict)
                     data_json = {
                         "algorithm_id": algorithm_id,
                         "slide_name": slide_name,
@@ -96,58 +102,53 @@ class PramanaInlineAlgorithmClass(AbstractInlineAlgorithmClass, FastAPI):
                         "row_idx": row_idx,
                         "col_idx": col_idx
                         }
-                    } 
+                    }
+                    tile_results = TileResults(**data_json) 
+                    tile_results_dict = tile_results.dict()
                     url = 'http://localhost:8001/v1/tile-results'
-                    # if is_running_as_docker:
-                    #     url = 'http://host.docker.internal:8001/v1/tile-results'
-                    requests.post(url, data = json.dumps(data_json), timeout=1)
-
+                    if self.docker_mode:
+                        url = 'http://host.docker.internal:8001/v1/tile-results'
+                    requests.post(url, data = json.dumps(tile_results_dict), timeout=1)
                 elif type(message) == ScanEnd:
                     data_json = {
                     "algorithm_id": algorithm_id,
                     "slide_name": slide_name
                     }
                     url = 'http://localhost:8001/v1/algorithm-completed'
-                    # if is_running_as_docker:
-                    #     url = 'http://host.docker.internal:8001/v1/algorithm-completed'
+                    if self.docker_mode:
+                        url = 'http://host.docker.internal:8001/v1/algorithm-completed'
                     requests.post(url, data = json.dumps(data_json), timeout=1)
-                    print('start end')
+                    self.on_scan_end(message) 
+                elif type(message) == ScanAbort:
+                    algorithm_id = ''
+                    slide_name = ''
+                    self.on_scan_abort(message)
+
         except BaseException as e:
-            self.error_event.set()
+            self.__error_event.set()
             raise e
     
     def run(self):
-        self.on_server_start()
         uvicorn.run(
         self.app,
         host=self.host,
         port=self.port,
     )
-    
+        
+    def on_server_start(self):
+        pass
+
     def on_server_end(self):
-        print('on_server_end')
-        return
+        pass
 
-    def on_scan_start(self):
-        print("In on_scan_start")
-        print(f"Time now : {time.time()}")
-        return
+    def on_scan_start(self, message):
+        pass
 
-    def process(self):
-        print('process')
-        print(f"Time now : {time.time()}")
-        return
+    def process(self, path):
+        pass
 
-    def on_scan_end(self):
-        print('on_scan_end')
-        return
+    def on_scan_end(self, message):
+        pass
 
-    def on_scan_abort(self):
-        print('on_scan_abort')
-        return
-
-
-if __name__== '__main__':
-    obj = PramanaInlineAlgorithmClass(8000, 'localhost', 'model')
-    obj.run()
-
+    def on_scan_abort(self, message):
+        pass
