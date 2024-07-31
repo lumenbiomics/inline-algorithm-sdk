@@ -55,4 +55,7 @@ if __name__== '__main__':
 ```
 ---
 ## Test with Simulator
-* Clone this <a href="https://github.com/lumenbiomics/inline-algorithm-sdk/tree/ISSUE-10903-sdk/examples/pramana_api_call_simulator" class="external-link" target="_blank">repository</a> and follow the README.md to setup the simulator
+* Clone this repository and follow the instructions in this <a href="https://github.com/lumenbiomics/inline-algorithm-sdk/tree/ISSUE-10903-sdk/examples/pramana_api_call_simulator" class="external-link" target="_blank">README.md</a> to setup the simulator
+```console
+$ git clone https://github.com/lumenbiomics/inline-algorithm-sdk
+```
