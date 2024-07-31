@@ -16,6 +16,10 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "Operating System :: OS Independent",
 ]
+dependencies = [
+    "fastapi>=0.95.1",
+    "uvicorn>=0.22.0",
+]
 
 [project.urls]
 Homepage = "https://github.com/lumenbiomics/inline-algorithm-sdk"
