@@ -98,7 +98,7 @@ class PramanaInlineAlgorithmClass(AbstractInlineAlgorithmClass):
                         "slide_name": slide_name,
                         "tile_name": tile_name,
                         "results": {
-                        "detection_array": results,
+                        "detection_array": results.dict(),
                         "row_idx": row_idx,
                         "col_idx": col_idx
                         }
