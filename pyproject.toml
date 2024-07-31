@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "PramanaInlineAlgoSDK"
+name = "inline_algorithm"
 version = "0.0.1"
 authors = [
   { name="Danny Jeng", email="djeng@pramana.ai" },
