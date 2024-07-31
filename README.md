@@ -19,10 +19,9 @@ FastAPI stands on the shoulders of giants:
 <div class="termy">
 
 ```console
-$ git clone https://github.com/lumenbiomics/inline-algorithm-sdk
-$ cd inline-algorithm-sdk
 $ python3 -m venv venv
 $ source venv/bin/activate
+$ pip install inline_algorithm@git+https://github.com/lumenbiomics/inline-algorithm-sdk.git@ISSUE-10903-sdk
 ```
 </div>
 
@@ -31,7 +30,7 @@ $ source venv/bin/activate
 ## Example
 * Create a file `main.py` with:
 ```python
-from src.inline_algorithm.PramanaInlineAlgorithmClass import PramanaInlineAlgorithmClass
+from inline_algorithm.PramanaInlineAlgorithmClass import PramanaInlineAlgorithmClass
 
 class TestChildClass(PramanaInlineAlgorithmClass):
     def __init__(self, port, host, docker_mode=True):
@@ -39,6 +38,16 @@ class TestChildClass(PramanaInlineAlgorithmClass):
     
     def process(self, message):
         return [[1, 2, 1, 'test_output']]
+    
+    #optional
+    def on_server_start(self):
+        print('loading model')
+        return
+    
+    #optional
+    def on_server_end(self):
+        print('freeing memory')
+        return
 
 if __name__== '__main__':
     obj = TestChildClass(8000, 'localhost', docker_mode=False)

@@ -1,4 +1,4 @@
-from src.inline_algorithm.PramanaInlineAlgorithmClass import PramanaInlineAlgorithmClass
+from inline_algorithm.PramanaInlineAlgorithmClass import PramanaInlineAlgorithmClass
 
 class TestChildClass(PramanaInlineAlgorithmClass):
     def __init__(self, port, host, docker_mode=True):

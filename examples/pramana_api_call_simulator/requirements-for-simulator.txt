@@ -1,0 +1,14 @@
+Pillow==9.5.0
+requests
+pandas
+tifffile
+imagecodecs
+configparser
+flask
+pydicom
+numpy
+tqdm
+fastapi
+uvicorn
+scikit-image
+opencv-python
