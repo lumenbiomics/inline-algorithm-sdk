@@ -52,5 +52,7 @@ class TestChildClass(PramanaInlineAlgorithmClass):
 if __name__== '__main__':
     obj = TestChildClass(8000, 'localhost', docker_mode=False)
     obj.run()
-
 ```
+---
+## Test with Simulator
+* Clone this <a href="https://github.com/lumenbiomics/inline-algorithm-sdk/tree/ISSUE-10903-sdk/examples/pramana_api_call_simulator" class="external-link" target="_blank">repository</a> and follow the README.md to setup the simulator
