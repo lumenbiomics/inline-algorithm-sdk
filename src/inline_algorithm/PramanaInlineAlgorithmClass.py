@@ -9,7 +9,7 @@ from threading import  Thread, Event
 from models import ScanStart, ScanOngoing, ScanEnd, ScanAbort, Results, TileResults
 
 class PramanaInlineAlgorithmClass(AbstractInlineAlgorithmClass):
-    def __init__(self, port, host, docker_mode=False):
+    def __init__(self, port, host, docker_mode=True):
         self.port = port
         self.host = host
         self.docker_mode = docker_mode
@@ -86,7 +86,7 @@ class PramanaInlineAlgorithmClass(AbstractInlineAlgorithmClass):
                     tile_name = message.tile_name
                     row_idx = message.row_idx
                     col_idx = message.col_idx
-                    model_results = self.process(path)
+                    model_results = self.process(message)
                     results_dict = {
                         "row_idx": row_idx,
                         "col_idx": col_idx,
@@ -144,7 +144,7 @@ class PramanaInlineAlgorithmClass(AbstractInlineAlgorithmClass):
     def on_scan_start(self, message):
         pass
 
-    def process(self, path):
+    def process(self, message):
         pass
 
     def on_scan_end(self, message):
