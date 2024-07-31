@@ -1,12 +1,12 @@
 from fastapi import FastAPI, Request, APIRouter, Response
 import uvicorn
-from AbstractInlineAlgorithmClass import AbstractInlineAlgorithmClass
+from .AbstractInlineAlgorithmClass import AbstractInlineAlgorithmClass
 import json
 import requests
 from contextlib import asynccontextmanager
 from queue import Queue
 from threading import  Thread, Event
-from models import ScanStart, ScanOngoing, ScanEnd, ScanAbort, Results, TileResults
+from .models import ScanStart, ScanOngoing, ScanEnd, ScanAbort, Results, TileResults
 
 class PramanaInlineAlgorithmClass(AbstractInlineAlgorithmClass):
     def __init__(self, port, host, docker_mode=True):
