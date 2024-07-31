@@ -8,8 +8,6 @@
 
 ## Requirements
 
-FastAPI stands on the shoulders of giants:
-
 * Needs <a href="https://www.python.org/downloads/" class="external-link" target="_blank">Python3.9</a> or higher
 
 ---
