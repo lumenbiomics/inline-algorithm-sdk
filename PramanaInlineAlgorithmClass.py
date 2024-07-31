@@ -9,7 +9,7 @@ from threading import  Thread, Event
 from models import ScanStart, ScanOngoing, ScanEnd, ScanAbort, Results, TileResults
 
 class PramanaInlineAlgorithmClass(AbstractInlineAlgorithmClass):
-    def __init__(self, port, host, docker_mode=False) -> None:
+    def __init__(self, port, host, docker_mode=False):
         self.port = port
         self.host = host
         self.docker_mode = docker_mode
