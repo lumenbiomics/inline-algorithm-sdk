@@ -36,8 +36,36 @@ class TestChildClass(PramanaInlineAlgorithmClass):
     def __init__(self, port, host, docker_mode=True):
         super().__init__(port, host, docker_mode)
     
+    #update this function with your machine learning model detection/segmentation helper
     def process(self, message):
-        return [[1, 2, 1, 'test_output']]
+    """
+    Processes a message of type ScanOngoing.
+
+    Parameters:
+    -----------
+    message : ScanOngoing
+        An instance of the ScanOngoing class.
+
+    The ScanOngoing class is defined as follows:
+    -------------------------------------------
+    class ScanOngoing(BaseModel):
+        slide_name: str
+            The name of the slide being scanned.
+        tile_name: str
+            The name of the tile within the slide.
+        tile_image_path: str
+            The file path to the image of the tile.
+        row_idx: int
+            The row index of the tile in the grid.
+        col_idx: int
+            The column index of the tile in the grid.
+
+    Returns:
+    --------
+    List[List]
+        A two-dimensional list with the processed data. Ex - [[0, 0, 0.9, "tumor"], [123, 321, 0.6, "stroma"]]
+    """
+    return 
     
     #optional
     def on_server_start(self):
