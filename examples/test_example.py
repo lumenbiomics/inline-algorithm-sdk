@@ -1,6 +1,6 @@
-from inline_algorithm.PramanaInlineAlgorithmClass import PramanaInlineAlgorithmClass
+from inline_algorithm.inline_algo_queue_processor import InlineAlgoQueueProcessor
 
-class TestChildClass(PramanaInlineAlgorithmClass):
+class TestChild(InlineAlgoQueueProcessor):
     def __init__(self, port, host, docker_mode=True):
         super().__init__(port, host, docker_mode)
     
@@ -8,5 +8,5 @@ class TestChildClass(PramanaInlineAlgorithmClass):
         return [[1, 2, 1, 'test_output']]
 
 if __name__== '__main__':
-    obj = TestChildClass(8000, 'localhost', docker_mode=False)
+    obj = TestChild(8000, 'localhost', docker_mode=False)
     obj.run()

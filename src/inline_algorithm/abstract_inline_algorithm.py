@@ -15,17 +15,17 @@ class AbstractInlineAlgorithm(ABC):
         pass
 
     @abstractmethod
-    def on_scan_start(self):
+    def on_scan_start(self, message):
         pass
 
     @abstractmethod
-    def process(self):
+    def process(self, message):
         pass
 
     @abstractmethod
-    def on_scan_end(self):
+    def on_scan_end(self, message):
         pass
 
     @abstractmethod
-    def on_scan_abort(self):
+    def on_scan_abort(self, message):
         pass
