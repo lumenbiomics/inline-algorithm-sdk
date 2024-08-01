@@ -28,9 +28,9 @@ $ pip install inline_algorithm@git+https://github.com/lumenbiomics/inline-algori
 ## Example
 * Create a file `main.py` with:
 ```python
-from inline_algorithm.PramanaInlineAlgorithmClass import PramanaInlineAlgorithmClass
+from inline_algorithm.PramanaInlineAlgorithm import PramanaInlineAlgorithm
 
-class TestChildClass(PramanaInlineAlgorithmClass):
+class TestChild(PramanaInlineAlgorithm):
     def __init__(self, port, host, docker_mode=True):
         super().__init__(port, host, docker_mode)
     
@@ -76,7 +76,7 @@ class TestChildClass(PramanaInlineAlgorithmClass):
         return
 
 if __name__== '__main__':
-    obj = TestChildClass(8000, 'localhost', docker_mode=False)
+    obj = TestChild(8000, 'localhost', docker_mode=False)
     obj.run()
 ```
 ---

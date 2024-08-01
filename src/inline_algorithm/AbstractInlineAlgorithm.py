@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-class AbstractInlineAlgorithmClass(ABC):
+class AbstractInlineAlgorithm(ABC):
 
     @abstractmethod
     def run(self):

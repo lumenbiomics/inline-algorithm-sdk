@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Request, APIRouter, Response
 import uvicorn
-from .AbstractInlineAlgorithmClass import AbstractInlineAlgorithmClass
+from .AbstractInlineAlgorithm import AbstractInlineAlgorithm
 import json
 import requests
 from contextlib import asynccontextmanager
@@ -8,7 +8,7 @@ from queue import Queue
 from threading import  Thread, Event
 from .models import ScanStart, ScanOngoing, ScanEnd, ScanAbort, Results, TileResults
 
-class PramanaInlineAlgorithmClass(AbstractInlineAlgorithmClass):
+class PramanaInlineAlgorithm(AbstractInlineAlgorithm):
     def __init__(self, port, host, docker_mode=True):
         self.port = port
         self.host = host
@@ -77,11 +77,8 @@ class PramanaInlineAlgorithmClass(AbstractInlineAlgorithmClass):
                 if type(message) == ScanStart:
                     algorithm_id = message.algorithm_id
                     slide_name = message.slide_name
-                    organ_name = message.organ_name
-                    path_to_output = message.path_to_output
                     self.on_scan_start(message)                    
                 elif type(message) == ScanOngoing:
-                    path = message.tile_image_path
                     slide_name = message.slide_name
                     tile_name = message.tile_name
                     row_idx = message.row_idx
@@ -101,18 +98,16 @@ class PramanaInlineAlgorithmClass(AbstractInlineAlgorithmClass):
                     }
                     tile_results = TileResults(**data_json) 
                     tile_results_dict = tile_results.dict()
-                    url = 'http://localhost:8001/v1/tile-results'
-                    if self.docker_mode:
-                        url = 'http://host.docker.internal:8001/v1/tile-results'
+                    hostname = 'host.docker.internal' if self.docker_mode else 'localhost'
+                    url = f"http://{hostname}:8001/v1/tile-results"
                     requests.post(url, data = json.dumps(tile_results_dict), timeout=1)
                 elif type(message) == ScanEnd:
                     data_json = {
                     "algorithm_id": algorithm_id,
                     "slide_name": slide_name
                     }
-                    url = 'http://localhost:8001/v1/algorithm-completed'
-                    if self.docker_mode:
-                        url = 'http://host.docker.internal:8001/v1/algorithm-completed'
+                    hostname = 'host.docker.internal' if self.docker_mode else 'localhost'
+                    url = f"http://{hostname}:8001/v1/algorithm-completed"
                     requests.post(url, data = json.dumps(data_json), timeout=1)
                     self.on_scan_end(message) 
                 elif type(message) == ScanAbort:
