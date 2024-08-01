@@ -1,0 +1,27 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "inline_algorithm"
+version = "0.0.1"
+authors = [
+  { name="Danny Jeng", email="djeng@pramana.ai" },
+  { name="Sagar Potnis", email="spotnis@pramana.ai" },
+]
+description = "SDK for working with inline algorithms on Pramana scanners"
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "fastapi>=0.95.1",
+    "uvicorn>=0.22.0",
+    "requests>=2.32.3",
+]
+
+[project.urls]
+Homepage = "https://github.com/lumenbiomics/inline-algorithm-sdk"
+Issues = "https://github.com/lumenbiomics/inline-algorithm-sdk/issues"
