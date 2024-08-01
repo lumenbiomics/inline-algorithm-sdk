@@ -19,7 +19,7 @@
 ```console
 $ python3 -m venv venv
 $ source venv/bin/activate
-$ pip install inline_algorithm@git+https://github.com/lumenbiomics/inline-algorithm-sdk.git@ISSUE-10903-sdk
+$ pip install inline_algorithm@git+https://github.com/lumenbiomics/inline-algorithm-sdk.git
 ```
 </div>
 
@@ -81,7 +81,7 @@ if __name__== '__main__':
 ```
 ---
 ## Test with Simulator
-* Clone this repository and follow the instructions in this <a href="https://github.com/lumenbiomics/inline-algorithm-sdk/tree/ISSUE-10903-sdk/examples/pramana_api_call_simulator" class="external-link" target="_blank">README.md</a> to setup the simulator
+* Clone this repository and follow the instructions in this <a href="https://github.com/lumenbiomics/inline-algorithm-sdk/tree/main/examples/pramana_api_call_simulator" class="external-link" target="_blank">README.md</a> to setup the simulator
 ```console
 $ git clone https://github.com/lumenbiomics/inline-algorithm-sdk
 ```
