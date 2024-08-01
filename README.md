@@ -8,7 +8,7 @@
 
 ## Requirements
 
-* Needs <a href="https://www.python.org/downloads/" class="external-link" target="_blank">Python3.9</a> or higher
+* Needs <a href="https://www.python.org/downloads/" class="external-link" target="_blank">Python3.10</a> or higher
 
 ---
 
