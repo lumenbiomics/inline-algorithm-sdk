@@ -36,34 +36,34 @@ class TestChildClass(PramanaInlineAlgorithmClass):
     
     #update this function with your machine learning model detection/segmentation helper
     def process(self, message):
-    """
-    Processes a message of type ScanOngoing.
+        """
+        Processes a message of type ScanOngoing.
 
-    Parameters:
-    -----------
-    message : ScanOngoing
-        An instance of the ScanOngoing class.
+        Parameters:
+        -----------
+        message : ScanOngoing
+            An instance of the ScanOngoing class.
 
-    The ScanOngoing class is defined as follows:
-    -------------------------------------------
-    class ScanOngoing(BaseModel):
-        slide_name: str
-            The name of the slide being scanned.
-        tile_name: str
-            The name of the tile within the slide.
-        tile_image_path: str
-            The file path to the image of the tile.
-        row_idx: int
-            The row index of the tile in the grid.
-        col_idx: int
-            The column index of the tile in the grid.
+        The ScanOngoing class is defined as follows:
+        -------------------------------------------
+        class ScanOngoing(BaseModel):
+            slide_name: str
+                The name of the slide being scanned.
+            tile_name: str
+                The name of the tile within the slide.
+            tile_image_path: str
+                The file path to the image of the tile.
+            row_idx: int
+                The row index of the tile in the grid.
+            col_idx: int
+                The column index of the tile in the grid.
 
-    Returns:
-    --------
-    List[List]
-        A two-dimensional list with the processed data. Ex - [[0, 0, 0.9, "tumor"], [123, 321, 0.6, "stroma"]]
-    """
-    return 
+        Returns:
+        --------
+        List[List]
+            A two-dimensional list with the processed data. Ex - [[0, 0, 0.9, "tumor"], [123, 321, 0.6, "stroma"]]
+        """
+        return 
     
     #optional
     def on_server_start(self):
