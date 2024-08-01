@@ -79,6 +79,7 @@ if __name__== '__main__':
     obj = TestChild(8000, 'localhost', docker_mode=False)
     obj.run()
 ```
+* Run the server: ```python main.py```
 ---
 ## Test with Simulator
 * Clone this repository and follow the instructions in this <a href="https://github.com/lumenbiomics/inline-algorithm-sdk/tree/main/examples/pramana_api_call_simulator" class="external-link" target="_blank">README.md</a> to setup the simulator
