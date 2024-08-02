@@ -33,6 +33,11 @@ from inline_algorithm.inline_algo_queue_processor import InlineAlgoQueueProcesso
 class TestChild(InlineAlgoQueueProcessor):
     def __init__(self, port, host, docker_mode=True):
         super().__init__(port, host, docker_mode)
+
+    #optional
+    def on_server_start(self):
+        #print('loading model')
+        return
     
     #update this function with your machine learning model detection/segmentation helper
     def process(self, message):
@@ -62,17 +67,14 @@ class TestChild(InlineAlgoQueueProcessor):
         --------
         List[List]
             A two-dimensional list with the processed data. Ex - [[0, 0, 0.9, "tumor"], [123, 321, 0.6, "stroma"]]
+            This 2D list should contain model detections where each sub array contains information about model detections like [x1, y1, confidence, class strings] for centroids or [x1, y1, x2, y2, confidence, class strings] for boundary boxes. 
         """
         return 
     
-    #optional
-    def on_server_start(self):
-        print('loading model')
-        return
     
     #optional
     def on_server_end(self):
-        print('freeing memory')
+        #print('freeing memory')
         return
 
 if __name__== '__main__':
