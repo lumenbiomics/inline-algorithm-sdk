@@ -41,12 +41,13 @@ This setup file creates two subdirectories called ```data``` and ```output``` an
  
 
 ## Prerequisite 
--  Needs Python3.11 or higher. Tested on Python 3.11.2
+-  Needs Python3.10 or higher. Tested on Python 3.10.11
 - You have installed `wget`
 
 ## Steps to install dependencies
 - ```cd``` into the ```pramana_api_call_simulator``` folder
-- Create an executable of the setup.sh file using the command: ```chmod +x setup.sh```  
+- Create an executable of the setup.sh file using the command: ```chmod +x setup.sh```
+- Execute it using the command: ```./setup.sh```  
 - Create a virtual environment using the command  : ```python3 -m venv venv```
 - Activate the virtual environment using the command: ```source venv/bin/activate```
 - Install the dependencies using the command: ```pip install -r requirements-for-simulator.txt```
