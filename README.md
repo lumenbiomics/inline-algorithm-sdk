@@ -82,7 +82,7 @@ if __name__== '__main__':
     obj.run()
 ```
 * Run the server: ```python main.py```
-* This should run the Fast API server and should be able to handle all the API requests
+* This will run the Fast API server and will be able to handle all the API requests
 ---
 ## Test with the Simulator
 * Clone this repository and follow the instructions in this <a href="https://github.com/lumenbiomics/inline-algorithm-sdk/tree/main/examples/pramana_api_call_simulator" class="external-link" target="_blank">README.md</a> to setup the simulator
@@ -98,8 +98,6 @@ FROM python:3.9-slim
 
 ENV PYTHONUNBUFFERED=1
 ENV DEBIAN_FRONTEND noninteractive
-# Set the working directory in the container
-
 WORKDIR /app
 
 RUN apt-get update

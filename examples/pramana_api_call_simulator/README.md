@@ -21,11 +21,11 @@ Pramana has a standardized API format for communicating between the Pramana scan
     └── README.md
 ## File Breakdown
  1. ```pramana_inline_algorithm_simulator.py```
-  This is the  simulator script to make the needed API calls. This script reads the sample ```ome.tiff``` or a ```.dcm``` file from the ```data/``` directory, breaks it down to ```.bmp``` files and saves it in a subdirectory inside the ```data/``` directory.   This file is supposed to mock the image acquisition process of the Pramana Scanner.
+  This is the  simulator script to make the needed API calls. This script reads the sample ```ome.tiff``` or a ```.dcm``` file from the ```data/``` directory, breaks it down to ```.bmp``` files and saves it in a subdirectory inside the ```data/``` directory.   This file will mock the image acquisition process of the Pramana Scanner.
 
 
 2. ```mock_scanner_service/mock_scanner_service.py```
-This is a ```FastAPI``` backend server that runs on the ```PORT 8001```. This service  is supposed to mock the Pramana Scanner and recieve the API calls made by the ```algorithm_api_service service```. It uses the ```models_scanner.py```  and     ```scanner_service_helpers.py``` files to run.
+This is a ```FastAPI``` backend server that runs on the ```PORT 8001```. This service will mock the Pramana Scanner and receive the API calls made by the algorithm api service service. It uses the ```models_scanner.py```  and     ```scanner_service_helpers.py``` files to run.
 
 3. ```config.ini```
  This config file is where all the constant parameters are defined. 
