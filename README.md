@@ -36,7 +36,11 @@ class TestChild(InlineAlgoQueueProcessor):
 
     #optional
     def on_server_start(self):
-        #print('loading model')
+        print('loading model')
+        return
+    #optional
+    def on_server_end(self):
+        print('freeing memory')
         return
     
     #update this function with your machine learning model detection/segmentation helper
@@ -71,11 +75,6 @@ class TestChild(InlineAlgoQueueProcessor):
         """
         return 
     
-    
-    #optional
-    def on_server_end(self):
-        #print('freeing memory')
-        return
 
 if __name__== '__main__':
     obj = TestChild(8000, 'localhost', docker_mode=False)
