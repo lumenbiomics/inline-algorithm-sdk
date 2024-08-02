@@ -1,6 +1,6 @@
 # Pramana Inline Algorithm Simulator
 
-This document provides a guide on how to simulate the entire Inline Algorithm Pipeline that will run on a Pramana Scanner.
+This document provides a guide on how to simulate the entire Inline Algorithm Pipeline that will run on a Pramana scanner.
 
 
 ## Introduction
