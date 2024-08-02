@@ -136,3 +136,4 @@ services:
       - 'host.docker.internal:host-gateway'
 ```
 Note: For the ```docker-compose.yml``` requirements that we need for the Inline Algorithm to run on the Pramana Scanner, please refer to the official API documentation <a href="https://developers.pramana.ai/inline-algorithms/documentation#section/Container-specifications" target="_blank">here</a>. In this example above, the ```volume``` mount and ```ports``` are specifically set to work with the simulator and **NOT** the Pramana Scanner.
+* Turn on the container using this command : ```docker compose -f <path to the docker compose file> up ```
