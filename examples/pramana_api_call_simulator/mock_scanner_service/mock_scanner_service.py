@@ -1,11 +1,17 @@
-from fastapi import FastAPI, Request
-import uvicorn
-from models_scanner import TileResults, AlgorithmCompleted
-from queue import Queue
+'''
+FastAPI server
+'''
+
 import os
-from threading import  Thread, Event
-from scanner_service_helpers import api_call_handler_scanner
 import configparser
+from threading import  Thread, Event
+from queue import Queue
+
+import uvicorn
+from fastapi import FastAPI, Request
+
+from models_scanner import TileResults, AlgorithmCompleted
+from scanner_service_helpers import api_call_handler_scanner
 
 my_path = os.path.abspath(os.path.dirname(__file__))
 config_path = os.path.join(my_path, "../config.ini")
