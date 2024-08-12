@@ -1,3 +1,7 @@
+"""
+An implementation of the AbstractInlineAlgorithm to run within a FastAPI server 
+and utilizing a queue to manage events.
+"""
 import json
 from contextlib import asynccontextmanager
 from queue import Queue
@@ -136,18 +140,20 @@ class InlineAlgoQueueProcessor(AbstractInlineAlgorithm):
 
     def api_call_handler_loop(self):
         """
-        Continuously handles API calls by processing messages from the queue. Depending on the type of 
-        message, it performs the corresponding action such as starting a scan, processing ongoing scan 
-        data, ending a scan, or aborting a scan. It also sends appropriate HTTP requests to specified URLs 
-        to communicate the results or status updates.
+        Continuously handles API calls by processing messages from the queue.
+        Depending on the type of message, it performs the corresponding action such
+        as starting a scan, processing ongoing scan data, ending a scan, or aborting a scan.
+        It also sends appropriate HTTP requests to specified URLs to communicate the results
+        or status updates.
 
-        This method runs in an infinite loop until an exception occurs, setting an error event if an 
-        exception is raised.
+        This method runs in an infinite loop until an exception occurs, setting an error
+        event if an exception is raised.
 
         Message Types:
             - ScanStart: Triggers the `on_scan_start` method.
             - ScanOngoing: Processes tile data and sends results to a specific URL.
-            - ScanEnd: Sends a completion signal to a specific URL and triggers the `on_scan_end` method.
+            - ScanEnd: Sends a completion signal to a specific URL and triggers the
+                       `on_scan_end` method.
             - ScanAbort: Triggers the `on_scan_abort` method.
 
         Exceptions:

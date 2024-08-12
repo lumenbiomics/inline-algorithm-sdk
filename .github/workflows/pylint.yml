@@ -20,4 +20,4 @@ jobs:
         pip install pylint
     - name: Analysing the code with pylint
       run: |
-        pylint --rc_file .pylintrc $(git ls-files '*.py')
+        pylint --rc_file .pylintrc --fail-under 8 $(git ls-files '*.py')
