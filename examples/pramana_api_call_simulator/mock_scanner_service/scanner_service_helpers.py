@@ -1,5 +1,5 @@
 '''
-Handler for acquisition messages.
+Handler for acquisition messages
 '''
 import os
 import cv2

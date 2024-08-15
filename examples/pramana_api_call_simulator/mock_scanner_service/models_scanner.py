@@ -1,11 +1,11 @@
 '''
-Models used for the simulator.
+Models used for the simulator
 '''
 from pydantic import BaseModel
 
 class TileResults(BaseModel):
     '''
-    Model for TileResults messages.
+    Model for TileResults messages
     '''
     algorithm_id: str
     slide_name: str
@@ -14,7 +14,7 @@ class TileResults(BaseModel):
 
 class AlgorithmCompleted(BaseModel):
     '''
-    Model for AlgorithmCompleted messages.
+    Model for AlgorithmCompleted messages
     '''
     algorithm_id: str
     slide_name: str

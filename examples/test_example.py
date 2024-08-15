@@ -1,11 +1,11 @@
 '''
-Example file illustrating use of the InlineAlgoQueueProcessor base class.
+Example file illustrating use of the InlineAlgoQueueProcessor base class
 '''
 from inline_algorithm.inline_algo_queue_processor import InlineAlgoQueueProcessor
 
 class TestChild(InlineAlgoQueueProcessor):
     '''
-    Example child class of InlineAlgoQueueProcessor.
+    Example child class of InlineAlgoQueueProcessor
     '''
     def process(self, message):
         '''

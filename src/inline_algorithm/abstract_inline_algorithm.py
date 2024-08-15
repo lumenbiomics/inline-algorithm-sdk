@@ -6,7 +6,7 @@ from abc import ABC, abstractmethod
 class AbstractInlineAlgorithm(ABC):
     '''
     Abstract Base Class containing methods to use for building the inline
-    algorithm container.
+    algorithm container
     '''
     @abstractmethod
     def run(self):
