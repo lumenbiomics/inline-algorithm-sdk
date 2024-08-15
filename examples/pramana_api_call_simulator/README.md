@@ -46,7 +46,6 @@ This setup file creates two subdirectories called ```data``` and ```output``` an
 
 ## Steps to install dependencies
 - ```cd``` into the ```pramana_api_call_simulator``` folder
-- Create an executable of the setup.sh file using the command: ```chmod +x setup.sh```
 - Execute it using the command: ```./setup.sh```  
 - Create a virtual environment using the command  : ```python3 -m venv venv```
 - Activate the virtual environment using the command: ```source venv/bin/activate```
