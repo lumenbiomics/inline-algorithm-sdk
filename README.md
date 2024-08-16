@@ -82,9 +82,11 @@ if __name__== '__main__':
 ```
 * Run the server: ```python main.py```
 * This will run the Fast API server and will be able to handle all the API requests
-* You can test this example with the Pramana API call simulator which will emulate the Pramana scanner's scanning pipeline
+* You can test this example with the Pramana API call simulator which will emulate the Pramana scanner's scanning pipeline. See this [section](#test-with-the-simulator)
+
+
 ---
-## Test with the Simulator
+## Test with the simulator
 * Clone this repository and follow the instructions in this <a href="https://github.com/lumenbiomics/inline-algorithm-sdk/tree/main/examples/pramana_api_call_simulator" class="external-link" target="_blank">README.md</a> to setup the simulator
 ```console
 $ git clone https://github.com/lumenbiomics/inline-algorithm-sdk
@@ -138,5 +140,3 @@ services:
 ```
 Note: For the ```docker-compose.yml``` requirements that we need for the Inline Algorithm to run on the Pramana Scanner, please refer to the official API documentation <a href="https://developers.pramana.ai/inline-algorithms/documentation#section/Container-specifications" target="_blank">here</a>. In this example above, the ```volume``` mount and ```ports``` are specifically set to work with the simulator and **NOT** the Pramana Scanner.
 * Turn on the container using this command : ```docker compose -f <path to the docker compose file> up ```
-
-
