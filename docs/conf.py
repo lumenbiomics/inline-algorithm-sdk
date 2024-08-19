@@ -7,7 +7,7 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'Pramana Inline Algorithm SDK'
-copyright = '2024, Sagar Potnis, Danny Jeng'
+copyright = '2024, Pramana'
 author = 'Sagar Potnis, Danny Jeng'
 
 # -- General configuration ---------------------------------------------------
