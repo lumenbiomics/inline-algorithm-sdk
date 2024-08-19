@@ -1,6 +1,7 @@
 '''
-Abstract Base Class
+This is an abstract base class from which other custom implementations can be derived.
 '''
+
 from abc import ABC, abstractmethod
 
 class AbstractInlineAlgorithm(ABC):

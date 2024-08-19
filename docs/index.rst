@@ -21,3 +21,4 @@ endpoints.
 
    usage
    example
+   module
