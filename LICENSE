@@ -173,6 +173,15 @@
       incurred by, or claims asserted against, such Contributor by reason
       of your accepting any such warranty or additional liability.
 
+   This product bundles FastAPI, which is available under a
+   MIT license. For details, see https://github.com/fastapi/fastapi.
+
+   This product bundles uvicorn, which is available under a
+   "3-clause BSD" license. For details, see https://github.com/encode/uvicorn.
+
+   This product bundles requests, which is available under an
+   Apache-2.0 license. For details, see https://github.com/psf/requests.
+
    END OF TERMS AND CONDITIONS
 
    APPENDIX: How to apply the Apache License to your work.
