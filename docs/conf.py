@@ -12,7 +12,7 @@ sys.path.insert(0, os.path.abspath('../src'))
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'Pramana Inline Algorithm SDK'
-copyright = '2024, Pramana'
+copyright = '2024 Pramana, Inc.'
 author = 'Sagar Potnis, Danny Jeng'
 
 # -- General configuration ---------------------------------------------------
