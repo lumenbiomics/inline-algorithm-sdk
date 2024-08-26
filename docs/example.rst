@@ -12,7 +12,6 @@ In that file, add the following code:
 
 .. code-block::
 
-    python
     from inline_algorithm.inline_algo_queue_processor import InlineAlgoQueueProcessor
     
     class TestChild(InlineAlgoQueueProcessor):
@@ -114,12 +113,17 @@ Create a file called ``Dockerfile`` with these contents.
     # Command to run the application
     CMD ["python3", "main.py"]
     ```
-    * Run the following command to build your Docker image:
-    ```console
+
+Run the following command to build your Docker image:
+
+.. code-block::
+
     $ docker build -t <image name>:<tag> .
-    ```
-    * Create a file called ```docker-compose.yml``` with these contents
-    ```docker-compose
+
+Create a file called ```docker-compose.yml``` with these contents
+
+.. code-block::
+
     version: '3.9'
     x-pramana-ui-name: Pramana Simulator
     services:
