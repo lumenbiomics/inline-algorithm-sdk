@@ -90,6 +90,8 @@ class InlineAlgoQueueProcessor(AbstractInlineAlgorithm):
         scan parameters for processing and returns a response indicating the
         request was successfully received.
 
+        Refer to the API documentation links at the top of this page for more information.
+
         :param ScanStart params: The request body for /v1/scan/start.
         :param Request request: The incoming HTTP request.
 
@@ -104,6 +106,8 @@ class InlineAlgoQueueProcessor(AbstractInlineAlgorithm):
         Handles the /v1/scan/image-tile API endpoint. This method enqueues the provided
         scan parameters for processing and returns a response indicating the
         request was successfully received.
+
+        Refer to the API documentation links at the top of this page for more information.
 
         :param ScanOngoing params: The request body for /v1/scan/image-tile.
         :param Request request: The incoming HTTP request.
@@ -120,7 +124,9 @@ class InlineAlgoQueueProcessor(AbstractInlineAlgorithm):
         scan parameters for processing and returns a response indicating the
         request was successfully received.
 
-        :param ScanEnd params : The request body for /v1/scan/end.
+        Refer to the API documentation links at the top of this page for more information.
+
+        :param ScanEnd params: The request body for /v1/scan/end.
         :param Request request: The incoming HTTP request.
 
         :return: A response object with status code 204.
@@ -134,6 +140,8 @@ class InlineAlgoQueueProcessor(AbstractInlineAlgorithm):
         Handles the /v1/scan/abort API endpoint. This method enqueues the provided
         scan parameters for processing and returns a response indicating the
         request was successfully received.
+
+        Refer to the API documentation links at the top of this page for more information.
 
         :param ScanAbort params: The request body for /v1/scan/abort.
         :param Request request: The incoming HTTP request.
