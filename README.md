@@ -1,6 +1,8 @@
 # inline-algorithm-sdk
 
-**Documentation**: <a href="https://developers.pramana.ai/inline-algorithms/documentation" target="_blank">https://developers.pramana.ai/inline-algorithms/documentation</a>
+**SDK Documentation**: <a href="https://developers.pramana.ai/inline-algorithms/sdk/documentation" target="_blank">https://developers.pramana.ai/inline-algorithms/sdk/documentation</a>
+
+**API Documentation**: <a href="https://developers.pramana.ai/inline-algorithms/documentation" target="_blank">https://developers.pramana.ai/inline-algorithms/documentation</a>
 
 **Source Code**: <a href="https://github.com/lumenbiomics/inline-algorithm-sdk" target="_blank">https://github.com/lumenbiomics/inline-algorithm-sdk</a>
 
