@@ -82,12 +82,16 @@ if __name__== '__main__':
 ```
 * Run the server: ```python main.py```
 * This will run the Fast API server and will be able to handle all the API requests
+* You can test this example with the Pramana API call simulator which will emulate the Pramana scanner's scanning pipeline. See this [section](#test-with-the-simulator)
+
+
 ---
-## Test with the Simulator
+## Test with the simulator
 * Clone this repository and follow the instructions in this <a href="https://github.com/lumenbiomics/inline-algorithm-sdk/tree/main/examples/pramana_api_call_simulator" class="external-link" target="_blank">README.md</a> to setup the simulator
 ```console
 $ git clone https://github.com/lumenbiomics/inline-algorithm-sdk
 ```
+* The simulator will emulate the Pramana scanner and simulate making API calls to port ```8000``` (as specified in the above example).
 ---
 ## Dockerize the Inline Algorithm
 * Create a file called ```Dockerfile``` with these contents

@@ -18,6 +18,7 @@ Pramana has a standardized API format for communicating between the Pramana scan
     ├── config.ini
     ├── requirements-for-simulator.txt
     ├── setup.sh
+    ├── sequence_diagram.jpeg
     └── README.md
 ## File Breakdown
  1. ```pramana_inline_algorithm_simulator.py```
@@ -61,3 +62,6 @@ Enter the command: ```python mock_scanner_service/mock_scanner_service.py```
 
 - To run the python script in non-interactive mode if the algorithm api service is running on localhost: ```python pramana_inline_algorithm_simulator.py```. If the algorithm api service is running inside a docker container run: ```python pramana_inline_algorithm_simulator.py -d```
 
+----
+# Sequence Diagram of the API calls
+![Sequence Diagram of the API calls](sequence_diagram.jpeg)
