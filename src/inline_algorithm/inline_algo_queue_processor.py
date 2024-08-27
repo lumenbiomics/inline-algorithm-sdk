@@ -33,30 +33,25 @@ from .models import ScanStart, ScanOngoing, ScanEnd, ScanAbort, Results, TileRes
 
 
 class InlineAlgoQueueProcessor(AbstractInlineAlgorithm):
-    '''
-    InlineAlgoQueueProcessor is an implementation of the AbstractInlineAlgorithm
-    designed to run within a FastAPI application. It initializes necessary
-    parameters such as port, host, and docker mode, and sets up a queue and
+    ''' 
+    Initializes parameters such as port, host, and docker mode, and sets up a queue and
     an error event for managing a task that will read messages populated in a queue.
 
-    Attributes:
-        port (int): The port number the FastAPI app will run on.
-        host (str): The host address the FastAPI app will bind to.
-        docker_mode (bool): A flag indicating if the application is running in Docker mode.
-        app (FastAPI): The FastAPI application instance.
-        __queue (Queue): A queue to manage API messages.
-        __error_event (Event): An event to handle error states.
-        __router (APIRouter): The FastAPI router for handling routes.
+    :param int port: The port number the FastAPI app will run on.
+    :param str host: The host address the FastAPI app will bind to
+    :param bool docker_mode: A flag indicating if the application is running in Docker mode.
     '''
 
     def __init__(self, port, host, docker_mode=True):
         self.port = port
         self.host = host
         self.docker_mode = docker_mode
-        self.__queue = Queue()
-        self.__error_event = Event()
-        self.app = FastAPI(lifespan=self.lifespan)
-        self.__router = APIRouter()
+
+        self.__queue = Queue() # A queue to manage API messages.
+        self.__error_event = Event() # An event to handle error states.
+        self.app = FastAPI(lifespan=self.lifespan) # The FastAPI application instance.
+        self.__router = APIRouter() # The FastAPI router for handling routes.
+
         self.__init_routes()
 
     def __init_routes(self):
@@ -76,13 +71,9 @@ class InlineAlgoQueueProcessor(AbstractInlineAlgorithm):
         lifetime. The server start and end hooks are also called at appropriate
         times.  self.on_server_start() will be called on the FastAPI application 
         startup and self.on_server_end() will be called when the FastAPI application 
-        gracefully shutdown
+        gracefully shutdown.
 
-        Args:
-            app (FastAPI): The FastAPI application instance.
-
-        Yields:
-            None: This context manager does not yield any values.
+        :param obj app: The FastAPI application instance.
         '''
         thread_handle = Thread(
             target=self.api_call_handler_loop,
@@ -99,12 +90,13 @@ class InlineAlgoQueueProcessor(AbstractInlineAlgorithm):
         scan parameters for processing and returns a response indicating the
         request was successfully received.
 
-        Args:
-            params (ScanStart): The request body for /v1/scan/start.
-            request (Request): The incoming HTTP request.
+        Refer to the API documentation links at the top of this page for more information.
 
-        Returns:
-            Response: A response object with status code 200.
+        :param ScanStart params: The request body for /v1/scan/start.
+        :param Request request: The incoming HTTP request.
+
+        :return: A response object with status code 200.
+        :rtype: Response
         '''
         self.__queue.put(params)
         return Response(status_code=200)
@@ -115,12 +107,13 @@ class InlineAlgoQueueProcessor(AbstractInlineAlgorithm):
         scan parameters for processing and returns a response indicating the
         request was successfully received.
 
-        Args:
-            params (ScanOngoing): The request body for /v1/scan/image-tile.
-            request (Request): The incoming HTTP request.
+        Refer to the API documentation links at the top of this page for more information.
 
-        Returns:
-            Response: A response object with status code 202.
+        :param ScanOngoing params: The request body for /v1/scan/image-tile.
+        :param Request request: The incoming HTTP request.
+
+        :return: A response object with status code 202.
+        :rtype: Response
         '''
         self.__queue.put(params)
         return Response(status_code=202)
@@ -131,12 +124,13 @@ class InlineAlgoQueueProcessor(AbstractInlineAlgorithm):
         scan parameters for processing and returns a response indicating the
         request was successfully received.
 
-        Args:
-            params (ScanEnd): The request body for /v1/scan/end.
-            request (Request): The incoming HTTP request.
+        Refer to the API documentation links at the top of this page for more information.
 
-        Returns:
-            Response: A response object with status code 204.
+        :param ScanEnd params: The request body for /v1/scan/end.
+        :param Request request: The incoming HTTP request.
+
+        :return: A response object with status code 204.
+        :rtype: Response
         '''
         self.__queue.put(params)
         return Response(status_code=204)
@@ -147,12 +141,13 @@ class InlineAlgoQueueProcessor(AbstractInlineAlgorithm):
         scan parameters for processing and returns a response indicating the
         request was successfully received.
 
-        Args:
-            params (ScanAbort): The request body for /v1/scan/abort.
-            request (Request): The incoming HTTP request.
+        Refer to the API documentation links at the top of this page for more information.
 
-        Returns:
-            Response: A response object with status code 204.
+        :param ScanAbort params: The request body for /v1/scan/abort.
+        :param Request request: The incoming HTTP request.
+
+        :return: A response object with status code 204.
+        :rtype: Response
         '''
         self.__queue.put(params)
         return Response(status_code=204)
@@ -175,11 +170,7 @@ class InlineAlgoQueueProcessor(AbstractInlineAlgorithm):
                        `on_scan_end` method.
             - ScanAbort: Triggers the `on_scan_abort` method.
 
-        Exceptions:
-            Any exception that occurs will set the error event and re-raise the exception.
-
-        Raises:
-            BaseException: Any exception encountered during the loop execution.
+        :raises BaseException: Any exception encountered during the loop execution.
         '''
         try:
             while True:
