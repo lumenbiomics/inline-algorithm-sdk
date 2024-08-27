@@ -1,7 +1,26 @@
-"""
+'''
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+
+---
+
 An implementation of the AbstractInlineAlgorithm to run within a FastAPI server 
 and utilizing a queue to manage events.
-"""
+'''
 import json
 from contextlib import asynccontextmanager
 from queue import Queue
@@ -14,14 +33,14 @@ from .models import ScanStart, ScanOngoing, ScanEnd, ScanAbort, Results, TileRes
 
 
 class InlineAlgoQueueProcessor(AbstractInlineAlgorithm):
-    """
+    ''' 
     Initializes parameters such as port, host, and docker mode, and sets up a queue and
     an error event for managing a task that will read messages populated in a queue.
 
     :param int port: The port number the FastAPI app will run on.
     :param str host: The host address the FastAPI app will bind to
     :param bool docker_mode: A flag indicating if the application is running in Docker mode.
-    """
+    '''
 
     def __init__(self, port, host, docker_mode=True):
         self.port = port
@@ -46,7 +65,7 @@ class InlineAlgoQueueProcessor(AbstractInlineAlgorithm):
 
     @asynccontextmanager
     async def lifespan(self, app: FastAPI):
-        """
+        '''
         Manages the lifespan of the FastAPI application, ensuring that the
         API call handler loop runs in a separate thread during the server's 
         lifetime. The server start and end hooks are also called at appropriate
@@ -55,7 +74,7 @@ class InlineAlgoQueueProcessor(AbstractInlineAlgorithm):
         gracefully shutdown.
 
         :param obj app: The FastAPI application instance.
-        """
+        '''
         thread_handle = Thread(
             target=self.api_call_handler_loop,
             daemon=True,
@@ -66,7 +85,7 @@ class InlineAlgoQueueProcessor(AbstractInlineAlgorithm):
         self.on_server_end()
 
     async def scan_start(self, params: ScanStart, request: Request):
-        """
+        '''
         Handles the /v1/scan/start API endpoint. This method enqueues the provided
         scan parameters for processing and returns a response indicating the
         request was successfully received.
@@ -76,12 +95,12 @@ class InlineAlgoQueueProcessor(AbstractInlineAlgorithm):
 
         :return: A response object with status code 200.
         :rtype: Response
-        """
+        '''
         self.__queue.put(params)
         return Response(status_code=200)
 
     async def scan_ongoing(self, params: ScanOngoing, request: Request):
-        """
+        '''
         Handles the /v1/scan/image-tile API endpoint. This method enqueues the provided
         scan parameters for processing and returns a response indicating the
         request was successfully received.
@@ -91,12 +110,12 @@ class InlineAlgoQueueProcessor(AbstractInlineAlgorithm):
 
         :return: A response object with status code 202.
         :rtype: Response
-        """
+        '''
         self.__queue.put(params)
         return Response(status_code=202)
 
     async def scan_end(self, params: ScanEnd, request: Request):
-        """
+        '''
         Handles the /v1/scan/end API endpoint. This method enqueues the provided
         scan parameters for processing and returns a response indicating the
         request was successfully received.
@@ -106,12 +125,12 @@ class InlineAlgoQueueProcessor(AbstractInlineAlgorithm):
 
         :return: A response object with status code 204.
         :rtype: Response
-        """
+        '''
         self.__queue.put(params)
         return Response(status_code=204)
 
     async def scan_abort(self, params: ScanAbort, request: Request):
-        """
+        '''
         Handles the /v1/scan/abort API endpoint. This method enqueues the provided
         scan parameters for processing and returns a response indicating the
         request was successfully received.
@@ -121,12 +140,12 @@ class InlineAlgoQueueProcessor(AbstractInlineAlgorithm):
 
         :return: A response object with status code 204.
         :rtype: Response
-        """
+        '''
         self.__queue.put(params)
         return Response(status_code=204)
 
     def api_call_handler_loop(self):
-        """
+        '''
         Continuously handles API calls by processing messages from the queue.
         Depending on the type of message, it performs the corresponding action such
         as starting a scan, processing ongoing scan data, ending a scan, or aborting a scan.
@@ -144,7 +163,7 @@ class InlineAlgoQueueProcessor(AbstractInlineAlgorithm):
             - ScanAbort: Triggers the `on_scan_abort` method.
 
         :raises BaseException: Any exception encountered during the loop execution.
-        """
+        '''
         try:
             while True:
                 message = self.__queue.get()
