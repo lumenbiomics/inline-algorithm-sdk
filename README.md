@@ -84,7 +84,7 @@ if __name__== '__main__':
 ```
 * Run the server: ```python main.py```
 * This will run the Fast API server and will be able to handle all the API requests
-* You can test this example with the Pramana API call simulator which will emulate the Pramana scanner's scanning pipeline. See this [section](#test-with-the-simulator)
+* You can test this example with the Pramana API call simulator which will simulate the Pramana scanner's scanning pipeline. See this [section](#test-with-the-simulator)
 
 
 ---
