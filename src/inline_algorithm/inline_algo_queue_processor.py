@@ -190,17 +190,20 @@ class InlineAlgoQueueProcessor(AbstractInlineAlgorithm):
                         "col_idx": col_idx,
                         "detection_array": model_results,
                     }
+                    results = Results(**results_dict)
                     data_json = {
                         "algorithm_id": algorithm_id,
                         "slide_name": slide_name,
                         "tile_name": tile_name,
-                        "results": results_dict,
+                        "results": results.dict(by_alias=True),
                     }
+                    tile_results = TileResults(**data_json)
+                    tile_results_dict = tile_results.dict(by_alias=True)
                     hostname = (
                         "host.docker.internal" if self.docker_mode else "localhost"
                     )
                     url = f"http://{hostname}:8001/v1/tile-results"
-                    requests.post(url, data=json.dumps(data_json), timeout=1)
+                    requests.post(url, data=json.dumps(tile_results_dict), timeout=1)
                 elif isinstance(message, ScanEnd):
                     data_json = {"algorithm_id": algorithm_id, "slide_name": slide_name}
                     hostname = (
