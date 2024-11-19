@@ -35,7 +35,7 @@ class DetectionArray(BaseModel):
     class Config:
         allow_population_by_field_name = True
 
-class Results(BaseModel):
+class AoiResults(BaseModel):
     '''
     For the final results of an algorithm
     '''
@@ -51,7 +51,7 @@ class TileResults(BaseModel):
     algorithm_id: str
     slide_name: str
     tile_name: str
-    results: Results
+    results: AoiResults
     scan_at_other_mag: dict | None = None
 
 class AlgorithmCompleted(BaseModel):

@@ -29,7 +29,7 @@ import requests
 from fastapi import FastAPI, Request, APIRouter, Response
 import uvicorn
 from .abstract_inline_algorithm import AbstractInlineAlgorithm
-from .models import ScanStart, ScanOngoing, ScanEnd, ScanAbort, Results, TileResults
+from .models import ScanStart, ScanOngoing, ScanEnd, ScanAbort, AoiResults, TileResults
 
 
 class InlineAlgoQueueProcessor(AbstractInlineAlgorithm):
@@ -190,7 +190,7 @@ class InlineAlgoQueueProcessor(AbstractInlineAlgorithm):
                         "col_idx": col_idx,
                         "detection_array": model_results,
                     }
-                    results = Results(**results_dict)
+                    results = AoiResults(**results_dict)
                     data_json = {
                         "algorithm_id": algorithm_id,
                         "slide_name": slide_name,
