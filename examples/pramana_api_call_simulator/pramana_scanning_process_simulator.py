@@ -319,7 +319,7 @@ def main():
                 print("Invalid Response. Please try again...")
 
         while True:
-            response_abort = input("Do you wish to simulate the PUT scan/abort API ? [Y/N]: ")
+            response_abort = input("Do you wish to simulate the /v1/scan/abort API call ? [Y/N]: ")
             if response_abort.upper() == "Y" or response_abort.upper() == "YES":
                 abort_bool = True
                 break

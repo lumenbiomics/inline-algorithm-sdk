@@ -11,14 +11,14 @@ Pramana has a standardized API format for communicating between the Pramana scan
     │   ├── mock_scanner_service.py
     │   ├── models_scanner.py
     │   └── scanner_service_helpers.py
-    ├── pramana_inline_algorithm_simulator.py
+    ├── pramana_scanning_process_simulator.py
     ├── config.ini
     ├── requirements-for-simulator.txt
     ├── setup.sh
     ├── sequence_diagram.jpeg
     └── README.md
 ## File Breakdown
- 1. ```pramana_inline_algorithm_simulator.py```
+ 1. ```pramana_scanning_process_simulator.py```
   This is the  simulator script to make the needed API calls. This script reads the sample ```ome.tiff``` or a ```.dcm``` file from the ```data/``` directory, breaks it down to ```.bmp``` files and saves it in a subdirectory inside the ```data/``` directory. This file will mock the image acquisition process of the Pramana Scanner.
 
 2. ```mock_scanner_service/mock_scanner_service.py```
@@ -53,8 +53,8 @@ Enter the command: ```python mock_scanner_service/mock_scanner_service.py```
 ## Run the simulator script to make the API calls
 - Run this in a new terminal
 - One can either run the script in interactive mode which asks for the user to trigger the pipeline step by step or in non-interactive mode which will run the entire script end to end without any user interaction required. Note: With the interactive mode you can skip the function which extracts the tiles from the ome.tiff you have already ran the script before to save time.
-- To run the python script in interactive mode and if the algorithm api service is running on localhost:  ```python pramana_inline_algorithm_simulator.py -i```. If the algorithm api service is running inside a docker container run: ```python pramana_inline_algorithm_simulator.py -i -d```
-- To run the python script in non-interactive mode if the algorithm api service is running on localhost: ```python pramana_inline_algorithm_simulator.py```. If the algorithm api service is running inside a docker container run: ```python pramana_inline_algorithm_simulator.py -d```
+- To run the python script in interactive mode and if the algorithm api service is running on localhost:  ```python pramana_scanning_process_simulator.py -i```. If the algorithm api service is running inside a docker container run: ```python pramana_scanning_process_simulator.py -i -d```
+- To run the python script in non-interactive mode if the algorithm api service is running on localhost: ```python pramana_scanning_process_simulator.py```. If the algorithm api service is running inside a docker container run: ```python pramana_scanning_process_simulator.py -d```
 
 ----
 # Sequence Diagram of the API calls

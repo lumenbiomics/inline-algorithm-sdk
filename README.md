@@ -79,6 +79,12 @@ class TestChild(InlineAlgoQueueProcessor):
                 ]
             The bounding box (bbox) value contains information about model detections in the
             form of [x1, y1, x2, y2].
+
+            OR
+
+        List[List] (to be deprecated in the future)
+            A two-dimensional list with the processed data. Ex - [[0, 0, 0.9, 1.2, 0.8, "tumor"], [123, 321, 200, 400, 0.6, "stroma"]].
+            Each sub array contains information about bounding boxes like [x1, y1, x2, y2, confidence, class strings].
         """
         return 
     
