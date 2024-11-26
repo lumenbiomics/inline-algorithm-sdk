@@ -71,9 +71,20 @@ class TestChild(InlineAlgoQueueProcessor):
 
         Returns:
         --------
-        List[List]
-            A two-dimensional list with the processed data. Ex - [[0, 0, 0.9, "tumor"], [123, 321, 0.6, "stroma"]]
-            This 2D list should contain model detections where each sub array contains information about model detections like [x1, y1, confidence, class strings] for centroids or [x1, y1, x2, y2, confidence, class strings] for boundary boxes. 
+        List[DetectionArray]
+            A list containing the processed data. Example:
+                [
+                    {"bbox": [0, 0, 1, 1], "confidence": 0.9, "class": "tumor"},
+                    {"bbox": [123, 321, 278, 456], "confidence": 0.6, "class": "stroma"},
+                ]
+            The bounding box (bbox) value contains information about model detections in the
+            form of [x1, y1, x2, y2].
+
+            OR
+
+        List[List] (to be deprecated in the future)
+            A two-dimensional list with the processed data. Ex - [[0, 0, 0.9, 1.2, 0.8, "tumor"], [123, 321, 200, 400, 0.6, "stroma"]].
+            Each sub array contains information about bounding boxes like [x1, y1, x2, y2, confidence, class strings].
         """
         return 
     

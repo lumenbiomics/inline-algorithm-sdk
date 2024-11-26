@@ -20,8 +20,8 @@ under the License.
 
 Defining Pydantic models
 '''
-from typing import List, Any
-from pydantic import BaseModel
+from typing import List, Union
+from pydantic import BaseModel, Field
 
 class ScanStart(BaseModel):
     '''
@@ -34,6 +34,8 @@ class ScanStart(BaseModel):
     tile_width: int
     tile_height: int
     path_to_output: str
+    microns_per_pixel: dict | None = None
+    available_magnifications: List[str] | None = None
 
 class ScanOngoing(BaseModel):
     '''
@@ -57,13 +59,26 @@ class ScanAbort(BaseModel):
     '''
     slide_name: str
 
-class Results(BaseModel):
+class DetectionArray(BaseModel):
+    """
+    Pydantic model
+    """
+    bbox: List[Union[int, float]]
+    confidence: float
+    class_: str = Field(..., alias='class')
+    scan_at_other_mag: dict | None = None
+
+    class Config:
+        allow_population_by_field_name = True
+
+class AoiResults(BaseModel):
     '''
     For the final results of an algorithm
     '''
-    detection_array: List[List[Any]]
+    detection_array: Union[List[DetectionArray], List[List]]
     row_idx: int
     col_idx: int
+    z_stack_to_preserve: bool | None = None
 
 class TileResults(BaseModel):
     '''
@@ -72,4 +87,5 @@ class TileResults(BaseModel):
     algorithm_id: str
     slide_name: str
     tile_name: str
-    results: dict
+    results: AoiResults
+    scan_at_other_mag: dict | None = None
