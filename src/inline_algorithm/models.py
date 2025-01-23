@@ -75,7 +75,7 @@ class AoiResults(BaseModel):
     '''
     For the final results of an algorithm
     '''
-    detection_array: Union[List[DetectionArray], List[List]]
+    detection_array: Union[List[DetectionArray], List[List]] = Field(default_factory=lambda: [[]])
     row_idx: int
     col_idx: int
     z_stack_to_preserve: bool | None = None
