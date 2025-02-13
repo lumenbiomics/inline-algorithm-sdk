@@ -219,6 +219,17 @@ def end_scan( api_port, slide_name):
     except Exception as e:
         print("Caught an error in end_scan function : ", e)
 
+####### Helper function to test the POST /v1/postprocessing-data API #######
+def send_pp_data():
+    try:
+        api_url = f"http://localhost:{api_port}/v1/postprocessing-data"
+        with open('./data/postprocessing-data.json', 'r') as f:
+            payload = json.load(f)
+
+        res = requests.post(api_url, json=payload)
+    except Exception as e:
+        print("Caught an error in send_pp_data: ", e)
+
 ####### Helper function to crop images to bmp files in 2048x2048 size #######
 def extract_tiles(input_file_path):
     """
@@ -353,6 +364,9 @@ def main():
                 )
                 ####### Helper function to test the PUT /v1/scan/end API #######
                 end_scan(api_port, slide_name)
+
+                ###### Helper function to test the POST /v1/postprocessing-data #######
+                send_pp_data()
                 break
             if response.upper() == "N" or response.upper() == "NO":
                 return
@@ -380,6 +394,9 @@ def main():
         )
         ####### Helper function to test the PUT /v1/scan/end API #######
         end_scan(api_port, slide_name)
+
+        ###### Helper function to test the POST /v1/postprocessing-data #######
+        send_pp_data()
 
 if __name__ == "__main__":
     main()
