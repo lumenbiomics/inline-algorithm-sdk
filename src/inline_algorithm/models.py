@@ -93,3 +93,18 @@ class TileResults(BaseModel):
     tile_name: str
     results: AoiResults
     scan_at_other_mag: dict | None = None
+
+class PostProcessing(BaseModel):
+    '''
+    For /v1/postprocessing-data
+    '''
+    slide_name: str
+    start_row: int
+    end_row: int
+    start_col: int
+    end_col: int
+    x_displacements: dict
+    y_displacements: dict
+    aoi_offset_dict: dict
+    aoi_height: int
+    aoi_width: int

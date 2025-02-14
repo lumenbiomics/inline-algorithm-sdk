@@ -29,8 +29,15 @@ import requests
 from fastapi import FastAPI, Request, APIRouter, Response
 import uvicorn
 from .abstract_inline_algorithm import AbstractInlineAlgorithm
-from .models import ScanStart, ScanOngoing, ScanEnd, ScanAbort, AoiResults, TileResults
-
+from .models import (
+    ScanStart,
+    ScanOngoing,
+    ScanEnd,
+    ScanAbort,
+    AoiResults,
+    TileResults,
+    PostProcessing,
+)
 
 class InlineAlgoQueueProcessor(AbstractInlineAlgorithm):
     ''' 
@@ -58,9 +65,16 @@ class InlineAlgoQueueProcessor(AbstractInlineAlgorithm):
         self.__router.add_api_route("/v1/scan/start", self.scan_start, methods=["PUT"])
         self.__router.add_api_route("/v1/scan/end", self.scan_end, methods=["PUT"])
         self.__router.add_api_route(
-            "/v1/scan/image-tile", self.scan_ongoing, methods=["POST"]
+            "/v1/scan/image-tile",
+            self.scan_ongoing,
+            methods=["POST"],
         )
         self.__router.add_api_route("/v1/scan/abort", self.scan_abort, methods=["PUT"])
+        self.__router.add_api_route(
+            "/v1/postprocessing-data",
+            self.postprocessing,
+            methods=["POST"],
+        )
         self.app.include_router(self.__router)
 
     @asynccontextmanager
@@ -100,6 +114,7 @@ class InlineAlgoQueueProcessor(AbstractInlineAlgorithm):
         '''
         self.__queue.put(params)
         return Response(status_code=200)
+
 
     async def scan_ongoing(self, params: ScanOngoing, request: Request):
         '''
@@ -245,3 +260,16 @@ class InlineAlgoQueueProcessor(AbstractInlineAlgorithm):
 
     def on_scan_abort(self, message):
         pass
+
+    async def postprocessing(self, params: PostProcessing, request: Request):
+        '''
+        Handles the /v1/postprocessing-data API endpoint.
+
+        :param
+        :param Request request: The incoming HTTP request.
+
+        :return: A response object with status code 200.
+        :rtype: Response
+        '''
+        #print(f'In postprocessing endpoint: {params}')
+        return Response(status_code=200)

@@ -17,6 +17,8 @@ specific language governing permissions and limitations
 under the License.
 '''
 ##### Import Libraries #####
+import time
+import json
 import os
 import math
 import random
@@ -220,12 +222,13 @@ def end_scan( api_port, slide_name):
         print("Caught an error in end_scan function : ", e)
 
 ####### Helper function to test the POST /v1/postprocessing-data API #######
-def send_pp_data():
+def send_pp_data(api_port):
     try:
         api_url = f"http://localhost:{api_port}/v1/postprocessing-data"
         with open('./data/postprocessing-data.json', 'r') as f:
             payload = json.load(f)
 
+        time.sleep(5)
         res = requests.post(api_url, json=payload)
     except Exception as e:
         print("Caught an error in send_pp_data: ", e)
@@ -366,7 +369,7 @@ def main():
                 end_scan(api_port, slide_name)
 
                 ###### Helper function to test the POST /v1/postprocessing-data #######
-                send_pp_data()
+                send_pp_data(api_port)
                 break
             if response.upper() == "N" or response.upper() == "NO":
                 return
@@ -396,7 +399,7 @@ def main():
         end_scan(api_port, slide_name)
 
         ###### Helper function to test the POST /v1/postprocessing-data #######
-        send_pp_data()
+        send_pp_data(api_port)
 
 if __name__ == "__main__":
     main()
