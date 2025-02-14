@@ -115,7 +115,6 @@ class InlineAlgoQueueProcessor(AbstractInlineAlgorithm):
         self.__queue.put(params)
         return Response(status_code=200)
 
-
     async def scan_ongoing(self, params: ScanOngoing, request: Request):
         '''
         Handles the /v1/scan/image-tile API endpoint. This method enqueues the provided
