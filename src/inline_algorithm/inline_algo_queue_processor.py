@@ -166,6 +166,19 @@ class InlineAlgoQueueProcessor(AbstractInlineAlgorithm):
         self.__queue.put(params)
         return Response(status_code=204)
 
+    async def postprocessing(self, params: PostProcessing, request: Request):
+        '''
+        Handles the /v1/postprocessing-data API endpoint.
+
+        :param
+        :param Request request: The incoming HTTP request.
+
+        :return: A response object with status code 200.
+        :rtype: Response
+        '''
+        self.__queue.put(params)
+        return Response(status_code=200)
+
     def api_call_handler_loop(self):
         '''
         Continuously handles API calls by processing messages from the queue.
@@ -230,6 +243,8 @@ class InlineAlgoQueueProcessor(AbstractInlineAlgorithm):
                     algorithm_id = ""
                     slide_name = ""
                     self.on_scan_abort(message)
+                elif isinstance(message, PostProcessing):
+                    self.on_scan_postprocessing(message)
 
         except BaseException as e:
             self.__error_event.set()
@@ -260,15 +275,5 @@ class InlineAlgoQueueProcessor(AbstractInlineAlgorithm):
     def on_scan_abort(self, message):
         pass
 
-    async def postprocessing(self, params: PostProcessing, request: Request):
-        '''
-        Handles the /v1/postprocessing-data API endpoint.
-
-        :param
-        :param Request request: The incoming HTTP request.
-
-        :return: A response object with status code 200.
-        :rtype: Response
-        '''
-        #print(f'In postprocessing endpoint: {params}')
-        return Response(status_code=200)
+    def on_scan_postprocessing(self, message):
+        pass

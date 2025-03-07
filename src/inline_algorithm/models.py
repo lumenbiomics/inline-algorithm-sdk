@@ -108,3 +108,4 @@ class PostProcessing(BaseModel):
     aoi_offset_dict: dict
     aoi_height: int
     aoi_width: int
+    scan_area_dims: dict | None = None
