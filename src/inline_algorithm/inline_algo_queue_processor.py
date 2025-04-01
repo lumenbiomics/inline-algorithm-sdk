@@ -212,25 +212,26 @@ class InlineAlgoQueueProcessor(AbstractInlineAlgorithm):
                     row_idx = message.row_idx
                     col_idx = message.col_idx
                     model_results = self.process(message)
-                    results_dict = {
-                        "row_idx": row_idx,
-                        "col_idx": col_idx,
-                        "detection_array": model_results,
-                    }
-                    results = AoiResults(**results_dict)
-                    data_json = {
-                        "algorithm_id": algorithm_id,
-                        "slide_name": slide_name,
-                        "tile_name": tile_name,
-                        "results": results.dict(by_alias=True),
-                    }
-                    tile_results = TileResults(**data_json)
-                    tile_results_dict = tile_results.dict(by_alias=True)
-                    hostname = (
-                        "host.docker.internal" if self.docker_mode else "localhost"
-                    )
-                    url = f"http://{hostname}:8001/v1/tile-results"
-                    requests.post(url, data=json.dumps(tile_results_dict), timeout=1)
+                    if model_results is not None:
+                        results_dict = {
+                            "row_idx": row_idx,
+                            "col_idx": col_idx,
+                            "detection_array": model_results,
+                        }
+                        results = AoiResults(**results_dict)
+                        data_json = {
+                            "algorithm_id": algorithm_id,
+                            "slide_name": slide_name,
+                            "tile_name": tile_name,
+                            "results": results.dict(by_alias=True),
+                        }
+                        tile_results = TileResults(**data_json)
+                        tile_results_dict = tile_results.dict(by_alias=True)
+                        hostname = (
+                            "host.docker.internal" if self.docker_mode else "localhost"
+                        )
+                        url = f"http://{hostname}:8001/v1/tile-results"
+                        requests.post(url, data=json.dumps(tile_results_dict), timeout=1)
                 elif isinstance(message, ScanEnd):
                     data_json = {"algorithm_id": algorithm_id, "slide_name": slide_name}
                     hostname = (

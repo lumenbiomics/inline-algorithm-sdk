@@ -21,7 +21,7 @@ under the License.
 Defining Pydantic models
 '''
 from typing import List, Union
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field
 
 class ScanStart(BaseModel):
     '''
@@ -79,10 +79,6 @@ class AoiResults(BaseModel):
     row_idx: int
     col_idx: int
     z_stack_to_preserve: bool | None = None
-
-    @validator("detection_array", pre=True, always=True)
-    def set_default_detection_array(cls, value):
-        return value if value is not None else [[]]
 
 class TileResults(BaseModel):
     '''
